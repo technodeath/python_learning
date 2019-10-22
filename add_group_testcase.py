@@ -15,7 +15,7 @@ class AddGroupTestcase(unittest.TestCase):
     
     def test_add_group_testcase(self):
         wd = self.wd
-        wd.get("http://localhost/addressbook/group.php?new=New+group")
+        wd.get("http://localhost/addressbook/")
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys("admin")
