@@ -3,11 +3,6 @@ class SessionHelper:
     def __init__(self, app):
         self.app = app
 
-    def logout(self):
-        # logout
-        wd = self.app.wd
-        wd.find_element_by_link_text("Logout").click()
-
     def login(self, username, password):
         # enter credentials and login
         wd = self.app.wd
@@ -18,3 +13,9 @@ class SessionHelper:
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys(password)
         wd.find_element_by_xpath("//input[@value='Login']").click()
+
+    def logout(self):
+        # logout
+        wd = self.app.wd
+        wd.find_element_by_xpath("//a[text()='Logout']").click()
+        wd.find_element_by_xpath("//a[text()='Logout']").click()
