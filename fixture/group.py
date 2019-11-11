@@ -8,17 +8,17 @@ class GroupHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("group page").click()
 
-    def fill_and_submit_new_group(self, group):
+    def fill_and_submit_new_group(self, new_group_data):
         # fill the new group form and submit
         wd = self.app.wd
-        self.fill_group_form(group)
+        self.fill_group_form(new_group_data)
         wd.find_element_by_name("submit").click()
         self.go_to_groups_page()
 
-    def fill_and_submit_edit_group(self, group):
-        # fill the group form and submit
+    def fill_and_submit_edit_group(self, new_group_data):
+        # fill the group form and update
         wd = self.app.wd
-        self.fill_group_form(group)
+        self.fill_group_form(new_group_data)
         wd.find_element_by_name("update").click()
         self.go_to_groups_page()
 
@@ -77,3 +77,8 @@ class GroupHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("groups").click()
         wd.find_element_by_xpath('//h1[text() = "Groups"]')
+
+    def count(self):
+        wd = self.app.wd
+        self.open_groups()
+        return len(wd.find_elements_by_name("selected[]"))
