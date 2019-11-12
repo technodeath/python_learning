@@ -6,7 +6,9 @@ class GroupHelper:
     def go_to_groups_page(self):
         # go to groups page
         wd = self.app.wd
-        wd.find_element_by_link_text("group page").click()
+        if not (wd.current_url.endswith("/group.php") and len(wd.find_elements_by_name("new")) > 0):
+            wd.find_element_by_link_text("groups").click()
+            wd.find_element_by_xpath('//h1[text() = "Groups"]')
 
     def fill_and_submit_new_group(self, new_group_data):
         # fill the new group form and submit
@@ -75,8 +77,9 @@ class GroupHelper:
     def open_groups(self):
         # press "groups" menu item
         wd = self.app.wd
-        wd.find_element_by_link_text("groups").click()
-        wd.find_element_by_xpath('//h1[text() = "Groups"]')
+        if not (wd.current_url.endswith("/group.php") and len(wd.find_elements_by_name("new")) > 0):
+            wd.find_element_by_link_text("groups").click()
+            wd.find_element_by_xpath('//h1[text() = "Groups"]')
 
     def count(self):
         wd = self.app.wd
