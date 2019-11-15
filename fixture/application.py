@@ -25,5 +25,11 @@ class Application:
         if not ((wd.current_url == "http://localhost/addressbook/") and len(wd.find_elements_by_xpath("//input[@value='Login']")) > 0):
             wd.get("http://localhost/addressbook/")
 
+    def open_home_page(self):
+        # open home page
+        wd = self.wd
+        if not ((wd.current_url == "http://localhost/addressbook/") and len(wd.find_elements_by_xpath("//input[@type='button' and @value='Send e-Mail']")) > 0):
+            wd.find_element_by_link_text("home").click()
+
     def destroy(self):
         self.wd.quit()

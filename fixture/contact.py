@@ -72,22 +72,22 @@ class ContactHelper:
     def delete_first_contact(self):
         wd = self.app.wd
         # select 1st
-        self.app.open_login_page()
+        self.app.open_home_page()
         wd.find_element_by_name("selected[]").click()
         # click "delete"
         wd.find_element_by_css_selector("input[value='Delete']").click()
         wd.switch_to.alert.accept()
-        self.app.open_login_page()
+        self.app.open_home_page()
 
     def edit_first_contact(self):
         wd = self.app.wd
         # select 1st contact
-        self.app.open_login_page()
+        self.app.open_home_page()
         wd.find_element_by_name("selected[]").click()
         # click "edit"
         wd.find_elements_by_css_selector('a[href^="edit.php?id"]')[0].click()
 
     def count(self):
         wd = self.app.wd
-        self.app.open_login_page()
+        self.app.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
