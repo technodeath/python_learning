@@ -73,11 +73,18 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
 
-    def delete_first_contact(self):
+    def select_contact_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_first_contact(self):
+        self.select_contact_by_index(0)
+
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         # select 1st
         self.app.open_home_page()
-        wd.find_element_by_name("selected[]").click()
+        self.select_contact_by_index(index)
         # click "delete"
         wd.find_element_by_css_selector("input[value='Delete']").click()
         wd.switch_to.alert.accept()
@@ -85,11 +92,11 @@ class ContactHelper:
         self.app.open_home_page()
         self.contact_cache = None
 
-    def edit_first_contact(self):
+    def edit_contact_by_index(self, index):
         wd = self.app.wd
         # select 1st contact
         self.app.open_home_page()
-        wd.find_element_by_name("selected[]").click()
+        self.select_contact_by_index(index)
         # click "edit"
         wd.find_elements_by_css_selector('a[href^="edit.php?id"]')[0].click()
 
