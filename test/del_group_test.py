@@ -8,7 +8,7 @@ def test_del_group_testcase(app):
     old_groups = app.group.get_groups_list()
     app.group.delete_first_group()
     new_groups = app.group.get_groups_list()
-    assert len(old_groups) - 1 == len(new_groups)
+    assert len(old_groups) - 1 == app.group.count()
     old_groups[0:1] = []
     assert old_groups == new_groups
 
