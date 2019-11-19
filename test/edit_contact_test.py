@@ -12,11 +12,12 @@ def test_edit_contact(app):
                                        email3='No email3', homepage='No homepage', bday='1', bmonth='September',
                                        byear='1941', aday='9', amonth='May', ayear='1945', address2='TestAddress',
                                        phone2='Test phone2', notes='test note'))
+    old_contacts = app.contact.get_contacts_list()
+    contact = Contact(lastname="Edited lastname")
+    contact.id = old_contacts[0].id
     app.contact.edit_first_contact()
-    app.contact.fill_contact_info_update(Contact(firstname='edited', middlename='edited', lastname='edited',
-                                       nickname='edited', photo='E:\\1332955017586.jpg', title='edited',
-                                       company='edited', address='edited', home='edited', mobile='edited',
-                                       work='edited', fax='edited', email='edited', email2='edited',
-                                       email3='edited', homepage='edited', bday='1', bmonth='September',
-                                       byear='1941', aday='9', amonth='May', ayear='1945', address2='TestAddress',
-                                       phone2='edited', notes='edited'))
+    app.contact.fill_contact_info_update(contact)
+    new_contacts = app.contact.get_contacts_list()
+    assert len(old_contacts) == len(new_contacts)
+    old_contacts[0] = contact
+    assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
