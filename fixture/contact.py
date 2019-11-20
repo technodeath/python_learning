@@ -98,7 +98,7 @@ class ContactHelper:
         self.app.open_home_page()
         self.select_contact_by_index(index)
         # click "edit"
-        wd.find_elements_by_css_selector('a[href^="edit.php?id"]')[0].click()
+        wd.find_elements_by_css_selector('a[href^="edit.php?id"]')[index].click()
 
     def count(self):
         wd = self.app.wd
