@@ -15,7 +15,7 @@ def test_edit_contact(app):
                                        phone2='Test phone2', notes='test note'))
     old_contacts = app.contact.get_contacts_list()
     index = randrange(len(old_contacts))
-    contact = Contact(lastname="Edited lastname")
+    contact = Contact(lastname="Edited lastname", firstname="Alex")
     contact.id = old_contacts[index].id
     app.contact.edit_contact_by_index(index)
     app.contact.fill_contact_info_update(contact)
