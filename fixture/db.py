@@ -38,5 +38,45 @@ class DbFixture:
             cursor.close()
         return list
 
+    def get_contact_list_in_group(self, group_id):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            query = "select id from address_in_groups where deprecated ='0000-00-00 00:00:00' and group_id = %s"
+            cursor.execute(query, group_id)
+            for row in cursor:
+                list.append(row[0])
+        finally:
+            cursor.close()
+        return list
+
+    def get_contact_list_in_group_and_homepage(self, group_id):  # bug, deleted contact doesn't remove from address_in_groups
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            query = """SELECT address_in_groups.id, address_in_groups.group_id, addressbook.id
+                    FROM address_in_groups
+                    INNER JOIN addressbook ON address_in_groups.id = addressbook.id WHERE address_in_groups.group_id = %s"""
+            cursor.execute(query, group_id)
+            for row in cursor:
+                list.append(row[0])
+        finally:
+            cursor.close()
+        return list
+
+    def get_group_list_with_contacts(self):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            query = """SELECT address_in_groups.id, address_in_groups.group_id, addressbook.id
+                    FROM address_in_groups
+                    INNER JOIN addressbook ON address_in_groups.id = addressbook.id"""
+            cursor.execute(query)
+            for row in cursor:
+                list.append(row[1])
+        finally:
+            cursor.close()
+        return list
+
     def destroy(self):
         self.connection.close()

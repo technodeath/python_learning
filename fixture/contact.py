@@ -82,6 +82,27 @@ class ContactHelper:
         wd = self.app.wd
         wd.find_element_by_css_selector("input[value='%s']" % id).click()
 
+    def add_to_group_by_group_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_name("to_group").click()
+        Select(wd.find_element_by_name("to_group")).select_by_value(id)
+        wd.find_element_by_name("to_group").click()
+        wd.find_element_by_name("add").click()
+        wd.get('http://localhost/addressbook')  # here is a bug in the app - avoid it
+
+    def delete_from_group_by_contact_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='Delete']").click()
+        wd.switch_to.alert.accept()
+        wd.find_element_by_xpath("//h1[text()='Delete record']")
+        self.app.open_home_page()
+
+    def select_group_to_view_by_group_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("select[name='group']").click()
+        Select(wd.find_element_by_css_selector("select[name='group']")).select_by_value(str(id))
+        wd.find_element_by_css_selector("select[name='group']").click()
+
     def select_first_contact(self):
         self.select_contact_by_index(0)
 
@@ -105,6 +126,14 @@ class ContactHelper:
         wd.find_element_by_xpath("//h1[text()='Delete record']")
         self.app.open_home_page()
         self.contact_cache = None
+
+    def delete_contact_from_group_by_id(self, id):
+        wd = self.app.wd
+        self.select_contact_by_id(id)
+        wd.find_element_by_css_selector("input[value='Delete']").click()
+        wd.switch_to.alert.accept()
+        wd.find_element_by_xpath("//h1[text()='Delete record']")
+        self.app.open_home_page()
 
     def edit_contact_by_id(self, id):
         wd = self.app.wd
@@ -130,6 +159,12 @@ class ContactHelper:
     def count(self):
         wd = self.app.wd
         self.app.open_home_page()
+        return len(wd.find_elements_by_name("selected[]"))
+
+    def count_in_group(self, group_id):
+        wd = self.app.wd
+        self.app.open_home_page()
+        self.app.contact.select_group_to_view_by_group_id(group_id)
         return len(wd.find_elements_by_name("selected[]"))
 
     contact_cache = None

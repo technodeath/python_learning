@@ -3,7 +3,7 @@ import random
 
 
 def test_del_contact_testcase(app, db, check_ui):
-    if db.get_contact_list() == 0:
+    if len(db.get_contact_list()) == 0:
         app.contact.press_add_new_contact()
         app.contact.fill_contact_info(Contact(firstname='Aliaksandr', middlename='Igorevich', lastname='Kuzmitski',
                                        nickname='technodeath', photo='E:\\1332955017586.jpg', title='QA',
@@ -20,5 +20,5 @@ def test_del_contact_testcase(app, db, check_ui):
     old_contacts.remove(contact)
     assert old_contacts == new_contacts
     if check_ui:
-        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.group.get_groups_list(), key=Contact.id_or_max)
+        assert sorted(new_contacts, key=Contact.id_or_max) == sorted(app.contact.get_contacts_list(), key=Contact.id_or_max)
 

@@ -4,7 +4,7 @@ import random
 
 
 def test_edit_contact(app, db, check_ui):
-    if db.get_contact_list() == 0:
+    if len(db.get_contact_list()) == 0:
         app.contact.press_add_new_contact()
         app.contact.fill_contact_info(Contact(firstname='Aliaksandr', middlename='Igorevich', lastname='Kuzmitski',
                                        nickname='technodeath', photo='E:\\1332955017586.jpg', title='QA',
