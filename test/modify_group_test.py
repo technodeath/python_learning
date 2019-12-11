@@ -3,7 +3,7 @@ import random
 
 
 def test_modify_group_name(app, db, check_ui):
-    if db.get_group_list():
+    if len(db.get_group_list()):
         app.group.create()
         app.group.fill_and_submit_new_group(Group(name="New group name"))
     old_groups = db.get_group_list()
