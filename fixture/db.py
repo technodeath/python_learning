@@ -38,12 +38,49 @@ class DbFixture:
             cursor.close()
         return list
 
+    def get_info_about_contacts_from_group(self, group_id):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            query = """SELECT addressbook.id, addressbook.firstname, addressbook.lastname
+                    FROM addressbook
+                    INNER JOIN address_in_groups ON address_in_groups.id = addressbook.id WHERE address_in_groups.group_id = %s"""
+            cursor.execute(query, group_id)
+            for row in cursor:
+                (id, firstname, lastname) = row
+                list.append(Contact(id=str(id), firstname=firstname, lastname=lastname))
+        finally:
+            cursor.close()
+        return list
+
     def get_contact_list_in_group(self, group_id):
         list = []
         cursor = self.connection.cursor()
         try:
             query = "select id from address_in_groups where deprecated ='0000-00-00 00:00:00' and group_id = %s"
             cursor.execute(query, group_id)
+            for row in cursor:
+                list.append(row[0])
+        finally:
+            cursor.close()
+        return list
+
+    def get_all_contacts_id_list_in_groups(self):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select id from address_in_groups where deprecated ='0000-00-00 00:00:00' order by id ASC")
+            for row in cursor:
+                list.append(row[0])
+        finally:
+            cursor.close()
+        return list
+
+    def get_all_contacts_id_list_in_contacts(self):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select id from addressbook where deprecated ='0000-00-00 00:00:00' order by id ASC")
             for row in cursor:
                 list.append(row[0])
         finally:

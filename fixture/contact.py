@@ -186,6 +186,17 @@ class ContactHelper:
                                                   all_phones_from_home_page=all_phones))
         return list(self.contact_cache)
 
+    def get_contacts_list_vs_db(self, group_id):
+        if self.contact_cache is None:
+            wd = self.app.wd
+            wd.get('http://localhost/addressbook/?group=%s') % group_id
+            self.contact_cache = []
+            for element in wd.find_elements_by_css_selector("tr[name='entry']"):
+                lastname = element.find_element_by_css_selector("tr[name='entry']>td:nth-child(2)").text
+                firstname = element.find_element_by_css_selector("tr[name='entry']>td:nth-child(3)").text
+                self.contact_cache.append(Contact(lastname=lastname, firstname=firstname, id=id))
+        return list(self.contact_cache)
+
     def get_contact_info_from_edit_page(self, index):
         wd = self.app.wd
         self.edit_contact_by_index(index)
