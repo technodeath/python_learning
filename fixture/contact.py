@@ -186,6 +186,9 @@ class ContactHelper:
                                                   all_phones_from_home_page=all_phones))
         return list(self.contact_cache)
 
+    def diff(self, li1, li2):
+        return list(set(li1) - set(li2))
+
     def get_contacts_list_vs_db(self, group_id):
         if self.contact_cache is None:
             wd = self.app.wd

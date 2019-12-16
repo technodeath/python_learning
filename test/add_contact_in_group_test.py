@@ -19,6 +19,11 @@ def test_add_random_contact_to_random_group(app, db, json_contacts, json_groups,
         app.contact.fill_contact_info(contact)
         app.contact.select_contact_by_id(contact.id)
         app.contact.add_to_group_by_group_id(group.id)
+    elif app.contact.diff(db.get_all_contacts_id_list_in_contacts(), db.get_all_contacts_id_list_in_groups()):
+        for i in app.contact.diff(db.get_all_contacts_id_list_in_contacts(), db.get_all_contacts_id_list_in_groups()):
+            group = random.choice(db.get_group_list())
+            app.contact.select_contact_by_id(i)
+            app.contact.add_to_group_by_group_id(group.id)
 
     contact = random.choice(db.get_contact_list())
     group = random.choice(db.get_group_list())
