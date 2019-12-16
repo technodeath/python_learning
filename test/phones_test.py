@@ -9,12 +9,14 @@ def test_phones_on_home_page(app):
 
 
 def test_all_contacts_on_home_page_vs_db(app, db):
-    contacts_from_home_page = app.contact.get_contacts_list()
-    contact_from_edit_page = app.contact.get_contact_info_from_edit_page(0)
-    contacts_from_db = db.get_contacts_info_from_db()
-    #assert contacts_from_home_page
-    #assert merge_phones_like_on_home_page(contacts_from_home_page) == contacts_from_db
-    assert db.get_phones_info_from_db == merge_phones_like_on_home_page(contact_from_edit_page)
+    for i in range(0, len(app.contact.get_contacts_list())):
+        contact_from_home_page = app.contact.get_contacts_list()[i]
+        contact_from_db = db.get_contacts_info_from_db()[i]
+        assert contact_from_home_page.firstname == contact_from_db.firstname
+        assert contact_from_home_page.lastname == contact_from_db.lastname
+        assert contact_from_home_page.address == contact_from_db.address
+        assert contact_from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(contact_from_db)
+        assert contact_from_home_page.all_emails_from_home_page == merge_emails_like_on_home_page(contact_from_db)
 
 
 def test_phones_on_contact_view_page(app):

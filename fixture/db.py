@@ -138,11 +138,11 @@ class DbFixture:
         list = []
         cursor = self.connection.cursor()
         try:
-            query = "SELECT work, phone2, home, mobile from addressbook where deprecated ='0000-00-00 00:00:00'"
+            query = "SELECT id, work, phone2, home, mobile from addressbook where deprecated ='0000-00-00 00:00:00'"
             cursor.execute(query)
             for row in cursor:
-                (work, phone2, home, mobile) = row
-                list.append(Contact(work=work, phone2=phone2, home=home, mobile=mobile))
+                (id, work, phone2, home, mobile) = row
+                list.append(Contact(id=str(id), work=work, phone2=phone2, home=home, mobile=mobile))
         finally:
             cursor.close()
         return list
