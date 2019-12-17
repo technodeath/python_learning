@@ -3,13 +3,13 @@ from model.contact import Contact
 import random
 
 
-def test_delete_random_contact_from_random_group(app, db, json_contacts, json_groups, check_ui):
+def test_delete_random_contact_from_random_group(app, db, check_ui):
     if len(db.get_contact_list()) == 0:
-        contact = json_contacts
+        contact = random.choice(db.get_contact_list())
         app.contact.press_add_new_contact()
         app.contact.fill_contact_info(contact)
     elif len(db.get_group_list()) == 0:
-        group = json_groups
+        group = random.choice(db.get_group_list())
         app.group.create()
         app.group.fill_and_submit_new_group(group)
     elif len(db.get_group_list_with_contacts()) == 0:
