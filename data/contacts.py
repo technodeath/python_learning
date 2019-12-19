@@ -1,0 +1,28 @@
+from model.contact import Contact
+
+
+testdata_contacts = (Contact(aday="6",
+    address="addressy5;j]9",
+    address2="address22",
+    amonth="March",
+    ayear="757",
+    bday="11",
+    bmonth="September",
+    byear="1656",
+    company="companyLct!",
+    email="@aVgb9.com",
+    email2="JQJScFZV@VXc91.com",
+    email3="k6kCZo@j7z.com",
+    fax="+222",
+    firstname="firstnameL Zr",
+    home="+3",
+    homepage="homeiF",
+    lastname="lastname&3:YqJ rp",
+    middlename="middlenameN>xK",
+    mobile="+248991230",
+    nickname="nicknamelV",
+    notes="notedp Wo",
+    phone2="+57327276",
+    photo="E:\\1332955017586.jpg",
+    title="title3SGz[s",
+    work="+391476"))
