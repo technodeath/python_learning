@@ -85,7 +85,7 @@ class ContactHelper:
     def add_to_group_by_group_id(self, id):
         wd = self.app.wd
         wd.find_element_by_name("to_group").click()
-        Select(wd.find_element_by_name("to_group")).select_by_value(id)
+        Select(wd.find_element_by_name("to_group")).select_by_value(str(id))
         wd.find_element_by_name("to_group").click()
         wd.find_element_by_name("add").click()
         wd.get('http://localhost/addressbook')  # here is a bug in the app - avoid it
@@ -130,7 +130,7 @@ class ContactHelper:
     def delete_contact_from_group_by_id(self, id):
         wd = self.app.wd
         self.select_contact_by_id(id)
-        wd.find_element_by_css_selector("input[value='Delete']").click()
+        wd.find_element_by_name("remove").click()
         wd.switch_to.alert.accept()
         wd.find_element_by_xpath("//h1[text()='Delete record']")
         self.app.open_home_page()

@@ -65,7 +65,7 @@ class DbFixture:
             cursor.close()
         return list
 
-    def get_all_contacts_id_list_in_groups(self):
+    def get_all_contacts_id_list_in_address_in_groups(self):
         list = []
         cursor = self.connection.cursor()
         try:
@@ -75,6 +75,18 @@ class DbFixture:
         finally:
             cursor.close()
         return list
+
+    def get_all_contacts_id_list_in_groups(self):
+        list = []
+        cursor = self.connection.cursor()
+        try:
+            cursor.execute("select group_id as id from group_list where deprecated ='0000-00-00 00:00:00' order by id ASC")
+            for row in cursor:
+                list.append(row[0])
+        finally:
+            cursor.close()
+        return list
+
 
     def get_all_contacts_id_list_in_contacts(self):
         list = []
