@@ -5,13 +5,16 @@ import random
 
 def test_delete_random_contact_from_random_group(app, db, check_ui):
     if len(db.get_contact_list()) == 0:
-        contact = random.choice(db.get_contact_list())
-        app.contact.press_add_new_contact()
-        app.contact.fill_contact_info(contact)
+        app.contact.fill_contact_info(Contact(firstname='Aliaksandr', middlename='Igorevich', lastname='Kuzmitski',
+                                       nickname='technodeath', photo='E:\\1332955017586.jpg', title='QA',
+                                       company='ScienceSoft', address='No address', home='No home', mobile='No',
+                                       work='No work', fax='No fax', email='No email1', email2='No email2',
+                                       email3='No email3', homepage='No homepage', bday='1', bmonth='September',
+                                       byear='1941', aday='9', amonth='May', ayear='1945', address2='TestAddress',
+                                       phone2='Test phone2', notes='test note'))
     elif len(db.get_group_list()) == 0:
-        group = random.choice(db.get_group_list())
         app.group.create()
-        app.group.fill_and_submit_new_group(group)
+        app.group.fill_and_submit_new_group(Group(name='test name', header='test header', footer='test footer'))
     elif len(db.get_group_list_with_contacts()) == 0:
         random_contact = random.choice(db.get_contact_list())
         random_group = random.choice(db.get_group_list())
