@@ -5,6 +5,7 @@ import random
 
 def test_delete_random_contact_from_random_group(app, db, check_ui):
     if len(db.get_contact_list()) == 0:
+        app.contact.press_add_new_contact()
         app.contact.fill_contact_info(Contact(firstname='Aliaksandr', middlename='Igorevich', lastname='Kuzmitski',
                                        nickname='technodeath', photo='E:\\1332955017586.jpg', title='QA',
                                        company='ScienceSoft', address='No address', home='No home', mobile='No',
